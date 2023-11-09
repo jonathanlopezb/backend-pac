@@ -15,6 +15,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN chown -R www-data:www-data /var/www
 RUN chmod 755 /var/www
 
+RUN docker-compose exec php composer install --ignore-platform-reqs
+RUN docker-compose exec php php artisan key:generate
+
 # COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # CMD ["curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer"]
